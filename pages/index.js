@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import Sidebar from "../components/Sidebar";
+import { Button } from "../components/ui/button";
 
 export default function Home() {
   const [walletConnected, setWalletConnected] = useState(false);
@@ -37,23 +37,20 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gray-100">
-      <Card className="max-w-md w-full p-4 shadow-xl rounded-2xl">
-        <CardContent className="space-y-4">
-          <h1 className="text-xl font-bold text-center">سایت اتصال کیف پول</h1>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <main className="flex-1 p-8">
+        <h1 className="text-3xl font-bold text-primary mb-6">Finvest</h1>
 
-          {!walletConnected ? (
-            <Button onClick={connectWallet} className="w-full">
-              اتصال کیف پول
-            </Button>
-          ) : (
-            <div className="text-center">
-              <p className="text-green-600 font-semibold">کیف پول متصل شد ✅</p>
-              <p className="text-sm text-gray-700 break-words mt-2">{walletAddress}</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </main>
+        {!walletConnected ? (
+          <Button onClick={connectWallet}>اتصال کیف پول</Button>
+        ) : (
+          <div className="bg-[#222] p-4 rounded-xl mt-4">
+            <p className="text-green-500 font-bold">کیف پول متصل شد ✅</p>
+            <p className="text-sm mt-2 break-words">{walletAddress}</p>
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
